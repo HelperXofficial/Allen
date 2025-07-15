@@ -110,6 +110,15 @@
       height: 1400px;
     }
 
+    .message-card {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #C62828;
+      background-color: #FFEBEE;
+      border: 1px solid #EF9A9A;
+      font-weight: 600;
+    }
+
     /* FOOTER */
     footer {
       background-color: #003f7f;
@@ -140,6 +149,39 @@
         height: 500px;
       }
     }
+    .champions {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.champion {
+  text-align: center;
+  max-width: 180px;
+}
+
+.champion img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.champion img:hover {
+  transform: scale(1.05);
+}
+
+.champion h4 {
+  margin-top: 1rem;
+  color: #005BAC;
+  font-size: 1.1rem;
+}
+
+.champion p {
+  font-size: 0.95rem;
+  color: #555;
+}
   </style>
 </head>
 <body>
@@ -151,18 +193,37 @@
 
   <!-- MAIN CONTENT -->
   <div class="container">
-    
-    <!-- Question Paper Card -->
-    <div class="card pdf-card">
-      <h3>📝 August Major 01 – Question Paper</h3>
-      <iframe src="https://drive.google.com/file/d/1t52mPVp5hG3A4UFaRf_SiyxQueRbsc44/preview" allow="autoplay"></iframe>
+<!-- RESULTS SECTION -->
+<div class="card">
+  <h3 style="text-align: center; margin-bottom: 2rem;">ALLEN ONLINE 2025 Champions</h3>
+  <div class="champions">
+    <div class="champion">
+      <img src="https://i.ibb.co/h1fGGXM4/Screenshot-20250715-153219-Gallery.jpg" alt="Aritro Ray">
+      <h4>Aritro Ray</h4>
+      <p>JEE Adv. 2025 - AIR 50</p>
+    </div>
+    <div class="champion">
+      <img src="https://i.ibb.co/BH76chbH/lx2ctxdpimggryfzdg8m.jpg" alt="Tanmay Jagga">
+      <h4>Tanmay Jagga</h4>
+      <p>NEET-UG 2025 - AIR 74</p>
+    </div>
+    <div class="champion">
+      <img src="https://i.ibb.co/Rkjp1qXj/Screenshot-20250715-142645-Chrome.jpg" alt="Disha Patil">
+      <h4>Disha Patil</h4>
+      <p>CBSE 10th 2025 - 99.2%</p>
+    </div>
+    <div class="champion">
+      <img src="https://i.ibb.co/Xr5sVZVm/Screenshot-20250715-153223-Gallery.jpg" alt="Aadish Jain">
+      <h4>Aadish Jain</h4>
+      <p>Olympiad 2025 - IJSO</p>
+    </div>
+  </div>
+</div>
+    <!-- Test Not Live Message -->
+    <div class="card message-card">
+      🚫 Test is not live currently. Please come on <strong>31 August 2025 at 12 PM</strong>.
     </div>
 
-    <!-- Answer Submission Card -->
-    <div class="card form-card">
-      <h3>📤 Submit Your Answers Below</h3>
-      <iframe src="https://form.svhrt.com/6874d59fc0a0d470f46609e4"></iframe>
-    </div>
   </div>
 
   <!-- FOOTER -->
