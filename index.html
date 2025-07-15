@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>August Major 01 | ALLEN</title>
+  <link rel="icon" href="https://i.ibb.co/pr0hpfXH/download-1.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* RESET + BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+    header {
+      background-color: #fff;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    header img {
+      height: 60px;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: #FFC107;
+      transition: 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: #005BAC;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .pdf-card iframe {
+      height: 600px;
+    }
+
+    .form-card iframe {
+      height: 1400px;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #003f7f;
+      color: white;
+      text-align: center;
+      padding: 1.2rem 0;
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+
+    /* RESPONSIVE */
+    @media screen and (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .pdf-card iframe,
+      .form-card iframe {
+        height: 500px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <img src="https://i.ibb.co/pr0hpfXH/download-1.png" alt="ALLEN Logo">
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    
+    <!-- Question Paper Card -->
+    <div class="card pdf-card">
+      <h3>📝 August Major 01 – Question Paper</h3>
+      <iframe src="https://drive.google.com/file/d/1t52mPVp5hG3A4UFaRf_SiyxQueRbsc44/preview" allow="autoplay"></iframe>
+    </div>
+
+    <!-- Answer Submission Card -->
+    <div class="card form-card">
+      <h3>📤 Submit Your Answers Below</h3>
+      <iframe src="https://form.svhrt.com/6874d59fc0a0d470f46609e4"></iframe>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    ALLEN Career Institute Pvt. Ltd. © All Rights Reserved.
+  </footer>
+
+</body>
+</html>
