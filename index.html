@@ -1,115 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>August Major 01 | ALLEN</title>
-  <link rel="icon" href="https://i.ibb.co/pr0hpfXH/download-1.png" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="CCBT 01 - Practice Test with Answer Submission Portal | ALLEN" />
+  <title>CCBT 01 | ALLEN Practice Test Portal</title>
+  <link rel="icon" href="https://i.ibb.co/pr0hpfXH/download-1.png" type="image/x-icon" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Montserrat:wght@700&display=swap"
+    rel="stylesheet" />
+
   <style>
-    /* RESET + BASE */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* HEADER */
-    header {
-      background-color: #fff;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    header img {
-      height: 60px;
-    }
-
-    nav {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: white;
-      font-weight: 600;
-      padding: 0.5rem 0;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 2px;
-      background: #FFC107;
-      transition: 0.3s;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    /* CONTAINER */
-    .container {
-      max-width: 1100px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h3 {
-      color: #005BAC;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    iframe {
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-    }
-
-    .pdf-card iframe {
-      height: 600px;
-    }
-
-    .form-card iframe {
-      height: 1400px;
-    }
-
+  
     .message-card {
       text-align: center;
       font-size: 1.1rem;
@@ -118,38 +21,8 @@
       border: 1px solid #EF9A9A;
       font-weight: 600;
     }
-
-    /* FOOTER */
-    footer {
-      background-color: #003f7f;
-      color: white;
-      text-align: center;
-      padding: 1.2rem 0;
-      font-size: 0.9rem;
-      margin-top: 4rem;
-    }
-
-    /* RESPONSIVE */
-    @media screen and (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav {
-        flex-direction: column;
-        width: 100%;
-        align-items: flex-start;
-        gap: 0.5rem;
-        margin-top: 1rem;
-      }
-
-      .pdf-card iframe,
-      .form-card iframe {
-        height: 500px;
-      }
-    }
-    .champions {
+    
+        .champions {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -182,18 +55,409 @@
   font-size: 0.95rem;
   color: #555;
 }
+    /* ============ Variables ============= */
+    :root {
+      --primary: #005BAC;
+      --secondary: #008851;
+      --accent: #FFC107;
+      --bg: #F8FBFF;
+      --white: #fff;
+      --border-card: #dde6ef;
+      --footer-bg: #002c56;
+      --text-dark: #222b45;
+      --text-gray: #6F7787;
+      --shadow-light: 0 4px 8px rgba(0, 91, 172, 0.1);
+      --shadow-heavy: 0 12px 28px rgba(0, 91, 172, 0.15);
+    }
+
+    /* ============ Reset & Base ============= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.7;
+      font-size: 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover,
+    a:focus {
+      color: var(--accent);
+      outline: none;
+    }
+
+    /* ============ Header ================ */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+      z-index: 10000;
+      font-size: 1rem;
+    }
+
+    .nav-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    header img {
+      height: 56px;
+      width: auto;
+      display: block;
+    }
+
+    .allen-title {
+      font-family: 'Montserrat', 'Open Sans', Arial, sans-serif;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      user-select: none;
+    }
+
+    nav.nav-links {
+      display: flex;
+      gap: 2.5rem;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      position: relative;
+    }
+
+    nav.nav-links a {
+      color: var(--text-gray);
+      padding-bottom: 0.25rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav.nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 4px;
+    }
+
+    nav.nav-links a:hover,
+    nav.nav-links a.active {
+      color: var(--primary);
+    }
+
+    nav.nav-links a:hover::after,
+    nav.nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* ============ Main Section ============= */
+    .section {
+      background: linear-gradient(110deg, #e8f2fc 0%, #f8fbff 100%);
+      padding: 3rem 1rem 6rem;
+      flex-grow: 1;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2.5rem;
+    }
+
+    /* ========== Card Styles ================ */
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-light);
+      border: 1.5px solid var(--border-card);
+      padding: 2.8rem 2.4rem;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      box-shadow: var(--shadow-heavy);
+      border-color: var(--primary);
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: var(--primary);
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      user-select: none;
+    }
+
+    .card .desc {
+      color: var(--text-gray);
+      font-size: 1.05rem;
+      margin-bottom: 1.6rem;
+    }
+
+    /* ============ Button Styles ============== */
+    .download-btn {
+      background: linear-gradient(94deg, var(--primary) 70%, var(--secondary) 100%);
+      color: var(--white);
+      font-weight: 600;
+      padding: 1rem 2.25rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      box-shadow: 0 6px 20px rgba(0, 91, 172, 0.15);
+      text-align: center;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+      border: none;
+      cursor: pointer;
+      align-self: start;
+      display: inline-block;
+    }
+
+    .download-btn:hover,
+    .download-btn:focus {
+      background: var(--accent);
+      color: var(--primary);
+      box-shadow: 0 8px 28px rgba(255, 193, 7, 0.7);
+      transform: translateY(-3px) scale(1.05);
+      outline: none;
+      text-decoration: none;
+    }
+
+    /* ============ iFrame Styling =============== */
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      background: #fcfeff;
+      box-shadow: 0 4px 16px rgba(32, 49, 89, 0.07);
+      margin-top: 0.3rem;
+      min-height: 540px;
+      transition: box-shadow 0.2s ease;
+      font-family: inherit;
+    }
+
+    iframe:focus {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* ============ Scroll to Top Button =============== */
+    #topBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--primary) 65%, var(--secondary) 92%);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0, 91, 172, 0.2);
+      font-weight: 600;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    #topBtn:hover,
+    #topBtn:focus {
+      background: var(--accent);
+      color: var(--primary);
+      transform: scale(1.15) rotate(-8deg);
+      outline: none;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* ============ Footer =============== */
+    footer {
+      background: var(--footer-bg);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 1.5rem 2.8rem;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      user-select: none;
+    }
+
+    .footer-links {
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1.2px solid rgba(22, 67, 112, 0.4);
+      font-size: 0.95rem;
+    }
+
+    .footer-links a {
+      color: #c8e0ff;
+      margin: 0 18px;
+      text-decoration: underline dotted;
+      transition: color 0.25s ease;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:focus {
+      color: var(--accent);
+      outline: none;
+    }
+
+    .footer-details {
+      font-size: 0.92rem;
+      color: #dbeffd;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .footer-details a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-details a:hover,
+    .footer-details a:focus {
+      color: var(--white);
+      outline: none;
+    }
+
+    /* ============ Responsive =============== */
+    @media (max-width: 1100px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .allen-title {
+        font-size: 1.2rem;
+      }
+
+      header {
+        padding: 0.5rem 1rem;
+      }
+
+      nav.nav-links {
+        gap: 1.5rem;
+      }
+
+      iframe {
+        min-height: 1000px;
+        border-radius: 12px;
+      }
+
+      .card {
+        padding: 2rem 1.6rem;
+      }
+
+      #topBtn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      header,
+      footer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .allen-title {
+        font-size: 1.05rem;
+      }
+
+      nav.nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      iframe {
+        min-height: 500px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <img src="https://i.ibb.co/pr0hpfXH/download-1.png" alt="ALLEN Logo">
+  <header role="banner">
+    <div class="nav-container">
+      <div class="logo-wrap">
+        <a href="https://allen.ac.in/" target="_blank" aria-label="Visit ALLEN Official Website">
+          <img src="https://i.ibb.co/pr0hpfXH/download-1.png" alt="ALLEN Logo" />
+        </a>
+        <span class="allen-title" aria-label="Practice Test Portal">Practice Test Portal</span>
+      </div>
+      <nav class="nav-links" role="navigation" aria-label="Primary navigation">
+        <a href="#" class="active" aria-current="page">CCBT 01</a>
+        <a href="#">Previous Papers</a>
+        <a href="#">Results</a>
+        <a href="#">Support</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <div class="container">
-<!-- RESULTS SECTION -->
+  <section class="section" role="main">
+    <div class="container">
+
 <div class="card">
   <h3 style="text-align: center; margin-bottom: 2rem;">ALLEN ONLINE 2025 Champions</h3>
   <div class="champions">
@@ -217,19 +481,52 @@
       <h4>Aadish Jain</h4>
       <p>Olympiad 2025 - IJSO</p>
     </div>
-  </div>
-</div>
-    <!-- Test Not Live Message -->
+    
+        <!-- Test Not Live Message -->
     <div class="card message-card">
       🚫 Test is not live currently. Please come on <strong>31 August 2025 at 10 AM</strong>.
     </div>
 
-  </div>
+    </div>
+  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    ALLEN Career Institute Pvt. Ltd. © All Rights Reserved.
+  <!-- Scroll to Top Button -->
+  <button id="topBtn" title="Go to top" aria-label="Scroll to top">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+      <circle cx="14" cy="14" r="13.5" fill="none" />
+      <polyline points="8,16 14,10 20,16"
+        style="fill:none;stroke:white;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round" />
+    </svg>
+  </button>
+
+  <footer role="contentinfo">
+    <div class="footer-links">
+      <a href="https://allen.ac.in/" target="_blank" rel="noopener noreferrer">Official Website</a>
+      <a href="#" rel="noopener noreferrer">Privacy Policy</a>
+      <a href="#" rel="noopener noreferrer">Contact & Support</a>
+    </div>
+    ALLEN Career Institute Pvt. Ltd. © All Rights Reserved.<br />
+    <div class="footer-details">
+      Kota (Rajasthan) | For Queries:
+      <a href="mailto:support@allen.ac.in">support@allen.ac.in</a> | 0744-2750259, 3510259
+    </div>
   </footer>
 
+  <script>
+    // Scroll-to-top button logic
+    const topBtn = document.getElementById("topBtn");
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 320) {
+        topBtn.style.display = "flex";
+      } else {
+        topBtn.style.display = "none";
+      }
+    });
+
+    topBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 </body>
+
 </html>
