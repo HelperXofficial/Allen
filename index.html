@@ -3,635 +3,947 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Status - Not Live</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <title>Physics & Chemistry MCQ Quiz</title>
+<style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #333;
-            overflow: hidden;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            position: relative;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-        .status-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: fadeInUp 0.8s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
+.screen {
+    display: none;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
 
-        .status-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #ff6b6b, transparent);
-            animation: shimmer 3s infinite;
-        }
+.screen.active {
+    display: block;
+}
 
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
+/* Welcome Screen Styles */
+#welcome-screen {
+    text-align: center;
+    padding: 50px;
+}
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+#welcome-screen h1 {
+    color: #667eea;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
 
-        .icon-container {
-            margin-bottom: 25px;
-        }
+.quiz-info {
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-        .icon-container i {
-            font-size: 4em;
-            color: #ff6b6b;
-            animation: pulse 2s infinite;
-        }
+.quiz-info h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-        }
+.quiz-info ul {
+    list-style: none;
+    text-align: left;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
 
-        .status-title {
-            font-size: 2.2em;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+.quiz-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
 
-        .message-container {
-            margin-bottom: 35px;
-            padding: 25px;
-            background: linear-gradient(145deg, #f8f9ff, #e8ecff);
-            border-radius: 15px;
-            border-left: 5px solid #ff6b6b;
-        }
+.quiz-info li:last-child {
+    border-bottom: none;
+}
 
-        .main-message {
-            font-size: 1.4em;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
+.language-selection {
+    margin: 20px 0;
+}
 
-        .main-message strong {
-            color: #ff6b6b;
-            font-weight: 700;
-        }
+.language-selection select {
+    padding: 10px 20px;
+    border: 2px solid #667eea;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 10px;
+}
 
-        .sub-message {
-            font-size: 1.1em;
-            color: #5a6c7d;
-            font-weight: 400;
-        }
+/* Button Styles */
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-        .test-info {
-            background: linear-gradient(145deg, #e8f5e8, #d4eed4);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border-left: 5px solid #28a745;
-        }
+.btn.primary {
+    background: #667eea;
+    color: white;
+}
 
-        .test-date {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
+.btn.primary:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+}
 
-        .test-time {
-            font-size: 1.1em;
-            color: #495057;
-            font-weight: 600;
-        }
+.btn.secondary {
+    background: #6c757d;
+    color: white;
+}
 
-        .countdown-container {
-            margin-bottom: 30px;
-            padding: 25px;
-            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
-            border-radius: 15px;
-            border-left: 5px solid #ffc107;
-        }
+.btn.warning {
+    background: #ffc107;
+    color: #333;
+}
 
-        .countdown-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
+.btn.success {
+    background: #28a745;
+    color: white;
+}
 
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+/* Quiz Screen Styles */
+.quiz-header {
+    background: #667eea;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-        .time-unit {
-            background: white;
-            padding: 15px 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            min-width: 70px;
-        }
+.timer-container {
+    font-size: 1.2em;
+    font-weight: bold;
+}
 
-        .time-value {
-            display: block;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #667eea;
-        }
+#timer {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin-left: 10px;
+}
 
-        .time-label {
-            display: block;
-            font-size: 0.9em;
-            color: #6c757d;
-            font-weight: 500;
-        }
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
-        .info-section {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-        }
+.progress-bar {
+    width: 200px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95em;
-            color: #4a5568;
-            font-weight: 500;
-        }
+#progress-fill {
+    height: 100%;
+    background: #28a745;
+    transition: width 0.3s ease;
+}
 
-        .info-item i {
-            color: #667eea;
-            font-size: 1.1em;
-        }
+.quiz-main {
+    padding: 30px;
+}
 
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
+.question-container {
+    margin-bottom: 30px;
+}
 
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            min-width: 140px;
-            justify-content: center;
-        }
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .btn.primary {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
+.difficulty-badge {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 
-        .btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
+.difficulty-badge.simple {
+    background: #d4edda;
+    color: #155724;
+}
 
-        .btn.secondary {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-        }
+.difficulty-badge.medium {
+    background: #fff3cd;
+    color: #856404;
+}
 
-        .btn.secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
-        }
+.difficulty-badge.hard {
+    background: #f8d7da;
+    color: #721c24;
+}
 
-        .btn:active {
-            transform: translateY(0);
-        }
+.question-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
 
-        .footer-note {
-            color: #718096;
-            font-size: 0.9em;
-            font-style: italic;
-            opacity: 0.8;
-        }
+.options-container {
+    margin-bottom: 30px;
+}
 
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #48bb78, #38a169);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.3);
-            transform: translateX(400px);
-            transition: transform 0.5s ease;
-            z-index: 1000;
-        }
+.option {
+    margin-bottom: 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
 
-        .notification.show {
-            transform: translateX(0);
-        }
+.option:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
 
-        .notification-content {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-        }
+.option input[type="radio"] {
+    display: none;
+}
 
-        .notification i {
-            font-size: 1.2em;
-        }
+.option input[type="radio"]:checked + label {
+    background: #667eea;
+    color: white;
+}
 
-        .btn.loading {
-            pointer-events: none;
-            opacity: 0.7;
-        }
+.option label {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .btn.loading i {
-            animation: spin 1s linear infinite;
-        }
+.option-letter {
+    font-weight: bold;
+    margin-right: 15px;
+    min-width: 30px;
+}
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+.navigation-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 10px;
+}
 
-        /* Responsive Design */
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .status-card {
-                padding: 30px 20px;
-            }
-            
-            .status-title {
-                font-size: 1.8em;
-            }
-            
-            .main-message {
-                font-size: 1.2em;
-            }
-            
-            .countdown-timer {
-                gap: 10px;
-            }
-            
-            .time-unit {
-                min-width: 60px;
-                padding: 12px 8px;
-            }
-            
-            .time-value {
-                font-size: 1.5em;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 200px;
-            }
-        }
+.question-grid {
+    border-top: 2px solid #e9ecef;
+    padding-top: 20px;
+}
 
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            .status-card {
-                background: rgba(30, 30, 30, 0.95);
-                color: #e2e8f0;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            .status-title {
-                color: #e2e8f0;
-            }
-            
-            .message-container {
-                background: linear-gradient(145deg, #2d3748, #1a202c);
-                color: #e2e8f0;
-            }
-            
-            .main-message {
-                color: #e2e8f0;
-            }
-            
-            .sub-message {
-                color: #a0aec0;
-            }
-            
-            .time-unit {
-                background: rgba(45, 55, 72, 0.8);
-            }
-        }
-    </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+.question-grid h3 {
+    margin-bottom: 15px;
+    color: #667eea;
+}
+
+#question-navigator {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 5px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #e9ecef;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    border-color: #667eea;
+}
+
+.nav-btn.answered {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.nav-btn.current {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* Result Screen Styles */
+#result-screen {
+    padding: 50px;
+    text-align: center;
+}
+
+.result-container h1 {
+    color: #667eea;
+    margin-bottom: 30px;
+}
+
+.score-display {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.total-score {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.score-value {
+    color: #ffd700;
+}
+
+.percentage {
+    font-size: 1.5em;
+}
+
+.cutoff-status {
+    margin-bottom: 30px;
+}
+
+.cutoff-badge {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.cutoff-badge.cleared {
+    background: #d4edda;
+    color: #155724;
+}
+
+.cutoff-badge.not-cleared {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.detailed-results {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .quiz-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .progress-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .navigation-container {
+        flex-wrap: wrap;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #question-navigator {
+        grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+    }
+}
+</style>
 </head>
 <body>
     <div class="container">
-        <div class="status-card">
-            <div class="icon-container">
-                <i class="fas fa-clock"></i>
-            </div>
-            
-            <h1 class="status-title">Test Not Available</h1>
-            
-            <div class="message-container">
-                <p class="main-message">Currently <strong>Test 01</strong> is not live</p>
-                <p class="sub-message">Please come again later</p>
-            </div>
-            
-            <div class="test-info">
-                <div class="test-date">📅 Test Date: 31 August 2025</div>
-                <div class="test-time">⏰ Test Time: 10:00 AM</div>
-            </div>
-            
-            <div class="countdown-container">
-                <div class="countdown-title">⏳ Test Will Begin In:</div>
-                <div class="countdown-timer" id="countdown-timer">
-                    <div class="time-unit">
-                        <span class="time-value" id="days">0</span>
-                        <span class="time-label">Days</span>
-                    </div>
-                    <div class="time-unit">
-                        <span class="time-value" id="hours">0</span>
-                        <span class="time-label">Hours</span>
-                    </div>
-                    <div class="time-unit">
-                        <span class="time-value" id="minutes">0</span>
-                        <span class="time-label">Minutes</span>
-                    </div>
-                    <div class="time-unit">
-                        <span class="time-value" id="seconds">0</span>
-                        <span class="time-label">Seconds</span>
-                    </div>
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <h1>Test 01</h1>
+            <div class="quiz-info">
+                <h2>Test Information</h2>
+                <ul>
+                    <li><strong>Total Questions:</strong> 70</li>
+                    <li><strong>Total Marks:</strong> 280 (4 marks each)</li>
+                    <li><strong>Time Duration:</strong> 2 hours 10 minutes</li>
+                    <li><strong>Marking Scheme:</strong> +4 for correct, -1 for incorrect</li>
+                    <li><strong>Cut-off:</strong> 40% (112 marks)</li>
+                </ul>
+                  <div class="input-name" style="margin-bottom: 20px;">
+    <label for="full-name" style="font-weight:bold;">Enter Full Name:</label>
+    <input type="text" id="full-name" name="full-name" placeholder="Your full name" style="padding: 8px; width: 100%; max-width: 300px; margin-top: 5px;" />
+  </div>
+                <div class="language-selection">
+                    <label>Select Language:</label>
+                    <select id="language-selector">
+                        <option value="english">English</option>
+                        <option value="hindi">Hindi</option>
+                    </select>
                 </div>
-            </div>
-            
-            <div class="info-section">
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <span id="current-time"></span>
-                </div>
-            </div>
-            
-            <div class="action-buttons">
-                <button id="refresh-btn" class="btn primary">
-                    <i class="fas fa-refresh"></i>
-                    Refresh Page
-                </button>
-                <button id="notify-btn" class="btn secondary">
-                    <i class="fas fa-bell"></i>
-                    Notify Me
-                </button>
-            </div>
-            
-            <div class="footer-note">
-                <p>We'll notify you as soon as Test 01 becomes available</p>
+                <button id="start-quiz" class="btn primary">Start Test</button>
             </div>
         </div>
-        
-        <!-- Notification popup -->
-        <div id="notification" class="notification">
-            <div class="notification-content">
-                <i class="fas fa-check-circle"></i>
-                <span>You'll be notified when the test is live!</span>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <header class="quiz-header">
+                <div class="timer-container">
+                    <span class="timer-label">Time Remaining:</span>
+                    <span id="timer">02:10:00</span>
+                </div>
+                <div class="progress-container">
+                    <span id="question-counter">Question 1 of 70</span>
+                    <div class="progress-bar">
+                        <div id="progress-fill"></div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="quiz-main">
+                <div class="question-container">
+                    <div class="question-header">
+                        <span id="question-level" class="difficulty-badge"></span>
+                        <span id="question-number">Question 1</span>
+                    </div>
+                    <div id="question-text" class="question-text"></div>
+                    <div class="image" style="text-align: center; margin-bottom: 20px;">
+        <img id="image" src="" alt="Question Figure" style="max-width: 100%; max-height: 300px; display: none; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+    </div>
+                    <div class="options-container">
+                        <div class="option" data-option="A">
+                            <input type="radio" name="answer" value="A" id="option-A">
+                            <label for="option-A">
+                                <span class="option-letter">A)</span>
+                                <span id="option-A-text"></span>
+                            </label>
+                        </div>
+                        <div class="option" data-option="B">
+                            <input type="radio" name="answer" value="B" id="option-B">
+                            <label for="option-B">
+                                <span class="option-letter">B)</span>
+                                <span id="option-B-text"></span>
+                            </label>
+                        </div>
+                        <div class="option" data-option="C">
+                            <input type="radio" name="answer" value="C" id="option-C">
+                            <label for="option-C">
+                                <span class="option-letter">C)</span>
+                                <span id="option-C-text"></span>
+                            </label>
+                        </div>
+                        <div class="option" data-option="D">
+                            <input type="radio" name="answer" value="D" id="option-D">
+                            <label for="option-D">
+                                <span class="option-letter">D)</span>
+                                <span id="option-D-text"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-container">
+                    <button id="prev-btn" class="btn secondary">Previous</button>
+                    <button id="clear-btn" class="btn warning">Clear</button>
+                    <button id="next-btn" class="btn primary">Next</button>
+                    <button id="submit-quiz" class="btn success" style="display: none;">Submit Test</button>
+                </div>
+
+                <div class="question-grid">
+                    <h3>Question Navigator</h3>
+                    <div id="question-navigator"></div>
+                </div>
+            </main>
+        </div>
+
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen">
+            <div class="result-container">
+                <h1>Test Results</h1>
+                <div class="result-summary">
+                    <div class="score-display">
+                        <div class="total-score">
+                            <span class="score-label">Total Score</span>
+                            <span id="final-score" class="score-value">0</span>
+                            <span class="score-total">/ 280</span>
+                        </div>
+                        <div class="percentage">
+                            <span id="percentage-score">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="cutoff-status">
+                        <div id="cutoff-result" class="cutoff-badge">
+                            <span id="cutoff-text">Cut-off Not Cleared</span>
+                        </div>
+                        <p>Cut-off Requirement: 112 marks (40%)</p>
+                    </div>
+
+                    <div class="detailed-results">
+                        <div class="result-stats">
+                            <div class="stat">
+                                <span class="stat-label">Correct Answers</span>
+                                <span id="correct-count" class="stat-value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Incorrect Answers</span>
+                                <span id="incorrect-count" class="stat-value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Unanswered</span>
+                                <span id="unanswered-count" class="stat-value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Time Taken</span>
+                                <span id="time-taken" class="stat-value">0:00:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="review-answers" class="btn primary">Review Answers</button>
+                        <button id="restart-quiz" class="btn secondary">Take Test Again</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <script>
-        class TestStatusManager {
-            constructor() {
-                // Test date: 31 August 2025 at 10:00 AM
-                this.testDate = new Date('August 31, 2025 10:00:00');
-                this.initializeDateTime();
-                this.initializeEventListeners();
-                this.startCountdown();
-                this.startTimeUpdate();
+
+  <script>// Complete Quiz data with all 70 questions
+const quizData = [
+{
+    level: "Medium",
+    questionEn: "A sphere of mass m is kept in equilibrium with the help of several springs as shown in the figure. Measurements show that one of the springs applies a force F on the sphere. With what acceleration the sphere will immediately after this particular spring is cut?",
+    questionHi: "एक कण x-अक्ष के साथ चल रहा है। इसकी प्रारंभिक वेग और प्रारंभिक त्वरण का अनुपात है:",
+    optionA: { en: "Zero", hi: "2α : δ" },
+    optionB: { en: "F/m", hi: "γ : 2δ" },
+    optionC: { en: "-F/m", hi: "4α : β" },
+    optionD: { en: "Insufficient Information", hi: "γ : 2β" },
+    correctAnswer: "C",
+    image: "https://i.ibb.co/4Z49hcZp/file-1kluwg122-248w.jpg"  // <-- Add this line
+},
+{
+    level: "Simple",
+    questionEn: "Which of the following is considered a metalloid?",
+    questionHi: "निम्न में से कौन एक मेटलॉयड माना जाता है?",
+    optionA: { en: "Sc", hi: "Sc" },
+    optionB: { en: "Pb", hi: "Pb" },
+    optionC: { en: "Bi", hi: "Bi" },
+    optionD: { en: "Te", hi: "Te" },
+    correctAnswer: "D"
+}
+];</script>
+    <script>class MCQQuiz {
+    constructor() {
+        this.questions = quizData;
+        this.currentQuestion = 0;
+        this.answers = new Array(this.questions.length).fill(null);
+        this.timeLimit = 2 * 60 * 60 + 10 * 60; // 2 hours 10 minutes in seconds
+        this.timeRemaining = this.timeLimit;
+        this.timer = null;
+        this.language = 'english';
+        this.startTime = null;
+        
+        this.initializeEventListeners();
+        this.createQuestionNavigator();
+    }
+
+    initializeEventListeners() {
+        // Welcome screen
+        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz());
+        document.getElementById('language-selector').addEventListener('change', (e) => {
+            this.language = e.target.value;
+        });
+
+        // Quiz navigation
+        document.getElementById('prev-btn').addEventListener('click', () => this.previousQuestion());
+        document.getElementById('next-btn').addEventListener('click', () => this.nextQuestion());
+        document.getElementById('clear-btn').addEventListener('click', () => this.clearAnswer());
+        document.getElementById('submit-quiz').addEventListener('click', () => this.showSubmitConfirmation());
+
+        // Option selection
+        document.querySelectorAll('input[name="answer"]').forEach(radio => {
+            radio.addEventListener('change', (e) => this.selectAnswer(e.target.value));
+        });
+
+        // Result screen
+        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz());
+        document.getElementById('review-answers').addEventListener('click', () => this.reviewAnswers());
+    }
+
+    startQuiz() {
+    const nameInput = document.getElementById('full-name').value.trim();
+    if (!nameInput) {
+        alert('Please enter your full name before starting the test.');
+        return;
+    }
+    this.userName = nameInput;
+    this.startTime = new Date();
+    this.showScreen('quiz-screen');
+    this.startTimer();
+    this.displayQuestion();
+    this.updateNavigation();
+}
+
+
+    showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.remove('active');
+        });
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    startTimer() {
+        this.timer = setInterval(() => {
+            this.timeRemaining--;
+            this.updateTimerDisplay();
+            
+            if (this.timeRemaining <= 0) {
+                this.submitQuiz();
             }
+        }, 1000);
+    }
 
-            initializeDateTime() {
-                this.updateCurrentTime();
-            }
-
-            updateCurrentTime() {
-                const now = new Date();
-                
-                // Format current time only
-                const timeOptions = {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: true
-                };
-                
-                const formattedTime = now.toLocaleTimeString('en-US', timeOptions);
-                document.getElementById('current-time').textContent = `Current Time: ${formattedTime}`;
-            }
-
-            startCountdown() {
-                this.updateCountdown();
-                
-                // Update countdown every second
-                setInterval(() => {
-                    this.updateCountdown();
-                }, 1000);
-            }
-
-            updateCountdown() {
-                const now = new Date();
-                const timeDifference = this.testDate - now;
-
-                if (timeDifference <= 0) {
-                    // Test time has arrived
-                    this.handleTestLive();
-                    return;
-                }
-
-                // Calculate time units
-                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-                // Update countdown display
-                document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-
-                // Change color when time is running low (less than 1 hour)
-                if (timeDifference <= 3600000) { // 1 hour in milliseconds
-                    document.querySelectorAll('.time-value').forEach(element => {
-                        element.style.color = '#ff6b6b';
-                    });
-                }
-            }
-
-            handleTestLive() {
-                // Test is now live - redirect to quiz or show different message
-                document.querySelector('.status-title').textContent = 'Test is Now Live!';
-                document.querySelector('.main-message').innerHTML = '<strong>Test 01</strong> is now available';
-                document.querySelector('.sub-message').textContent = 'Click below to start your test';
-                
-                // Hide countdown
-                document.querySelector('.countdown-container').style.display = 'none';
-                
-                // Change button to "Start Test"
-                const refreshBtn = document.getElementById('refresh-btn');
-                refreshBtn.innerHTML = '<i class="fas fa-play"></i> Start Test';
-                refreshBtn.onclick = () => {
-                    // Redirect to actual quiz page
-                    window.location.href = '/quiz'; // Change this to your actual quiz URL
-                };
-            }
-
-            startTimeUpdate() {
-                // Update current time every second
-                setInterval(() => {
-                    this.updateCurrentTime();
-                }, 1000);
-            }
-
-            initializeEventListeners() {
-                // Refresh button
-                document.getElementById('refresh-btn').addEventListener('click', () => {
-                    this.refreshPage();
-                });
-
-                // Notify button
-                document.getElementById('notify-btn').addEventListener('click', () => {
-                    this.showNotification();
-                });
-
-                // Auto-refresh every 5 minutes
-                setInterval(() => {
-                    this.autoRefresh();
-                }, 5 * 60 * 1000);
-            }
-
-            refreshPage() {
-                const refreshBtn = document.getElementById('refresh-btn');
-                
-                // Add loading state
-                refreshBtn.classList.add('loading');
-                refreshBtn.disabled = true;
-                
-                // Simulate checking for test availability
-                setTimeout(() => {
-                    location.reload();
-                }, 2000);
-            }
-
-            showNotification() {
-                const notification = document.getElementById('notification');
-                notification.classList.add('show');
-                
-                // Store notification preference
-                localStorage.setItem('testNotificationRequested', 'true');
-                localStorage.setItem('testNotificationTime', new Date().toISOString());
-                
-                // Hide notification after 4 seconds
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 4000);
-            }
-
-            autoRefresh() {
-                // Check if test time is near (within 30 minutes)
-                const now = new Date();
-                const timeDifference = this.testDate - now;
-                
-                if (timeDifference <= 1800000 && timeDifference > 0) { // 30 minutes
-                    console.log('Test starting soon, checking status...');
-                    // In real implementation, make API call to check test status
-                }
-            }
+    updateTimerDisplay() {
+        const hours = Math.floor(this.timeRemaining / 3600);
+        const minutes = Math.floor((this.timeRemaining % 3600) / 60);
+        const seconds = this.timeRemaining % 60;
+        
+        const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.getElementById('timer').textContent = display;
+        
+        // Change color when time is running low
+        if (this.timeRemaining <= 300) { // Last 5 minutes
+            document.getElementById('timer').style.color = '#ff4444';
         }
+    }
 
-        // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new TestStatusManager();
-            
-            // Add entrance animations
-            setTimeout(() => {
-                document.querySelector('.status-card').style.transform = 'scale(1)';
-            }, 100);
+    displayQuestion() {
+        const question = this.questions[this.currentQuestion];
+        const isHindi = this.language === 'hindi';
+// Display image if available for the current question
+const imageElement = document.getElementById('image');
+if (question.image) {
+    imageElement.src = question.image;
+    imageElement.style.display = 'block';
+} else {
+    imageElement.style.display = 'none';
+}
+
+
+        // Update question counter and progress
+        document.getElementById('question-counter').textContent = `Question ${this.currentQuestion + 1} of ${this.questions.length}`;
+        document.getElementById('question-number').textContent = `Question ${this.currentQuestion + 1}`;
+        
+        // Update progress bar
+        const progress = ((this.currentQuestion + 1) / this.questions.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        
+        // Update difficulty badge
+        const levelBadge = document.getElementById('question-level');
+        levelBadge.textContent = question.level;
+        levelBadge.className = `difficulty-badge ${question.level.toLowerCase()}`;
+        
+        // Update question text
+        document.getElementById('question-text').textContent = isHindi ? question.questionHi : question.questionEn;
+        
+        // Update options
+        document.getElementById('option-A-text').textContent = isHindi ? question.optionA.hi : question.optionA.en;
+        document.getElementById('option-B-text').textContent = isHindi ? question.optionB.hi : question.optionB.en;
+        document.getElementById('option-C-text').textContent = isHindi ? question.optionC.hi : question.optionC.en;
+        document.getElementById('option-D-text').textContent = isHindi ? question.optionD.hi : question.optionD.en;
+        
+        // Clear previous selection
+        document.querySelectorAll('input[name="answer"]').forEach(radio => {
+            radio.checked = false;
         });
+        
+        // Restore saved answer if exists
+        if (this.answers[this.currentQuestion]) {
+            document.querySelector(`input[value="${this.answers[this.currentQuestion]}"]`).checked = true;
+        }
+        
+        this.updateNavigation();
+    }
 
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
-                e.preventDefault();
-                document.getElementById('refresh-btn').click();
+    selectAnswer(answer) {
+        this.answers[this.currentQuestion] = answer;
+        this.updateQuestionNavigator();
+    }
+
+    clearAnswer() {
+        this.answers[this.currentQuestion] = null;
+        document.querySelectorAll('input[name="answer"]').forEach(radio => {
+            radio.checked = false;
+        });
+        this.updateQuestionNavigator();
+    }
+
+    previousQuestion() {
+        if (this.currentQuestion > 0) {
+            this.currentQuestion--;
+            this.displayQuestion();
+        }
+    }
+
+    nextQuestion() {
+        if (this.currentQuestion < this.questions.length - 1) {
+            this.currentQuestion++;
+            this.displayQuestion();
+        }
+    }
+
+    updateNavigation() {
+        document.getElementById('prev-btn').disabled = this.currentQuestion === 0;
+        
+        if (this.currentQuestion === this.questions.length - 1) {
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-quiz').style.display = 'inline-block';
+        } else {
+            document.getElementById('next-btn').style.display = 'inline-block';
+            document.getElementById('submit-quiz').style.display = 'none';
+        }
+    }
+
+    createQuestionNavigator() {
+        const navigator = document.getElementById('question-navigator');
+        navigator.innerHTML = '';
+        
+        for (let i = 0; i < this.questions.length; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'nav-btn';
+            btn.textContent = i + 1;
+            btn.onclick = () => this.goToQuestion(i);
+            navigator.appendChild(btn);
+        }
+        
+        this.updateQuestionNavigator();
+    }
+
+    updateQuestionNavigator() {
+        const buttons = document.querySelectorAll('.nav-btn');
+        buttons.forEach((btn, index) => {
+            btn.classList.remove('current', 'answered');
+            
+            if (index === this.currentQuestion) {
+                btn.classList.add('current');
             }
             
-            if (e.ctrlKey && e.key === 'n') {
-                e.preventDefault();
-                document.getElementById('notify-btn').click();
+            if (this.answers[index] !== null) {
+                btn.classList.add('answered');
             }
         });
-    </script>
+    }
+
+    goToQuestion(questionIndex) {
+        this.currentQuestion = questionIndex;
+        this.displayQuestion();
+    }
+
+    showSubmitConfirmation() {
+        const answeredCount = this.answers.filter(answer => answer !== null).length;
+        const unansweredCount = this.questions.length - answeredCount;
+        
+        let message = `You have answered ${answeredCount} out of ${this.questions.length} questions.`;
+        if (unansweredCount > 0) {
+            message += `\n${unansweredCount} questions are still unanswered.`;
+        }
+        message += '\n\nAre you sure you want to submit the quiz?';
+        
+        if (confirm(message)) {
+            this.submitQuiz();
+        }
+    }
+
+    submitQuiz() {
+    clearInterval(this.timer);
+    this.calculateResults();
+    this.showScreen('result-screen');
+
+    const formspreeEndpoint = 'https://formspree.io/f/mdklnzad'; // Replace with your actual URL
+    
+    const payload = {
+        name: this.userName,
+        score: totalMarks,
+        correct: correctAnswers,
+        incorrect: incorrectAnswers,
+        unanswered: unanswered,
+        time_taken: timeDisplay
+    };
+    
+    fetch(formspreeEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Your quiz result has been sent successfully!');
+        } else {
+            alert('Failed to send quiz result. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error sending form submission:', error);
+        alert('Error sending quiz result.');
+    });
+}
+
+
+    calculateResults() {
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        let unanswered = 0;
+        
+        this.answers.forEach((answer, index) => {
+            if (answer === null) {
+                unanswered++;
+            } else if (answer === this.questions[index].correctAnswer) {
+                correctAnswers++;
+            } else {
+                incorrectAnswers++;
+            }
+        });
+        
+        const totalMarks = (correctAnswers * 4) - (incorrectAnswers * 1);
+        const percentage = (totalMarks / 280) * 100;
+        const cutoffMarks = 112; // 40% of 280
+        const cutoffCleared = totalMarks >= cutoffMarks;
+        
+        // Calculate time taken
+        const endTime = new Date();
+        const timeTaken = new Date(endTime - this.startTime);
+        const hours = timeTaken.getUTCHours();
+        const minutes = timeTaken.getUTCMinutes();
+        const seconds = timeTaken.getUTCSeconds();
+        const timeDisplay = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Update result display
+        document.getElementById('final-score').textContent = totalMarks;
+        document.getElementById('percentage-score').textContent = `${percentage.toFixed(1)}%`;
+        document.getElementById('correct-count').textContent = correctAnswers;
+        document.getElementById('incorrect-count').textContent = incorrectAnswers;
+        document.getElementById('unanswered-count').textContent = unanswered;
+        document.getElementById('time-taken').textContent = timeDisplay;
+        
+        // Update cutoff status
+        const cutoffBadge = document.getElementById('cutoff-result');
+        const cutoffText = document.getElementById('cutoff-text');
+        
+        if (cutoffCleared) {
+            cutoffBadge.className = 'cutoff-badge cleared';
+            cutoffText.textContent = 'Cut-off Cleared ✓';
+        } else {
+            cutoffBadge.className = 'cutoff-badge not-cleared';
+            cutoffText.textContent = 'Cut-off Not Cleared ✗';
+        }
+       
+    }
+
+    restartQuiz() {
+        this.currentQuestion = 0;
+        this.answers = new Array(this.questions.length).fill(null);
+        this.timeRemaining = this.timeLimit;
+        this.startTime = null;
+        
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+        
+        this.showScreen('welcome-screen');
+        this.createQuestionNavigator();
+    }
+
+    reviewAnswers() {
+        // Implementation for reviewing answers
+        alert('Review functionality would show detailed answer explanations here.');
+    }
+}
+
+
+
+// Initialize the quiz when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const quiz = new MCQQuiz();
+});
+</script>
+
 </body>
-</html>
+                                    </html>
